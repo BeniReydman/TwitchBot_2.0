@@ -6,12 +6,15 @@ namespace TwitchBot
     {
         static void Main(string[] args)
         {
-            IrcClient client = new IrcClient("irc.twitch.tv", 6667, "NinjaMonkersBot", System.IO.File.ReadAllText(@"Password.txt"), "ninjamonkers");
+            IrcClient client = new IrcClient("irc.twitch.tv", 6667, "ninjamonkersbot", System.IO.File.ReadAllText(@"Password.txt"), "ninjamonkers");
 
+            // Send ping every 5 minutes
             var pinger = new Pinger(client);
             pinger.Start();
 
-            client.SendChatMessage("Guess who's back Joe >:)");
+            // Send chat message via console
+            var consoleChat = new ConsoleChat(client);
+            consoleChat.Start();
 
             while (true)
             {
